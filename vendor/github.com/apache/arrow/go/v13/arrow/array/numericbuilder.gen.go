@@ -31,7 +31,7 @@ import (
 	"github.com/apache/arrow/go/v13/arrow/bitutil"
 	"github.com/apache/arrow/go/v13/arrow/internal/debug"
 	"github.com/apache/arrow/go/v13/arrow/memory"
-	"github.com/goccy/go-json"
+	"github.com/apache/arrow/go/v13/internal/json"
 )
 
 type Int64Builder struct {
@@ -75,8 +75,20 @@ func (b *Int64Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Int64Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Int64Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Int64Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Int64Builder) UnsafeAppend(v int64) {
@@ -141,6 +153,10 @@ func (b *Int64Builder) Resize(n int) {
 		b.data.Resize(arrow.Int64Traits.BytesRequired(n))
 		b.rawData = arrow.Int64Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Int64Builder) Value(i int) int64 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Int64 array from the memory buffers used by the builder and resets the Int64Builder
@@ -298,8 +314,20 @@ func (b *Uint64Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Uint64Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Uint64Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Uint64Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Uint64Builder) UnsafeAppend(v uint64) {
@@ -364,6 +392,10 @@ func (b *Uint64Builder) Resize(n int) {
 		b.data.Resize(arrow.Uint64Traits.BytesRequired(n))
 		b.rawData = arrow.Uint64Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Uint64Builder) Value(i int) uint64 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Uint64 array from the memory buffers used by the builder and resets the Uint64Builder
@@ -521,8 +553,20 @@ func (b *Float64Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Float64Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Float64Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Float64Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Float64Builder) UnsafeAppend(v float64) {
@@ -587,6 +631,10 @@ func (b *Float64Builder) Resize(n int) {
 		b.data.Resize(arrow.Float64Traits.BytesRequired(n))
 		b.rawData = arrow.Float64Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Float64Builder) Value(i int) float64 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Float64 array from the memory buffers used by the builder and resets the Float64Builder
@@ -744,8 +792,20 @@ func (b *Int32Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Int32Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Int32Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Int32Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Int32Builder) UnsafeAppend(v int32) {
@@ -810,6 +870,10 @@ func (b *Int32Builder) Resize(n int) {
 		b.data.Resize(arrow.Int32Traits.BytesRequired(n))
 		b.rawData = arrow.Int32Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Int32Builder) Value(i int) int32 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Int32 array from the memory buffers used by the builder and resets the Int32Builder
@@ -967,8 +1031,20 @@ func (b *Uint32Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Uint32Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Uint32Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Uint32Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Uint32Builder) UnsafeAppend(v uint32) {
@@ -1033,6 +1109,10 @@ func (b *Uint32Builder) Resize(n int) {
 		b.data.Resize(arrow.Uint32Traits.BytesRequired(n))
 		b.rawData = arrow.Uint32Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Uint32Builder) Value(i int) uint32 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Uint32 array from the memory buffers used by the builder and resets the Uint32Builder
@@ -1190,8 +1270,20 @@ func (b *Float32Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Float32Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Float32Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Float32Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Float32Builder) UnsafeAppend(v float32) {
@@ -1256,6 +1348,10 @@ func (b *Float32Builder) Resize(n int) {
 		b.data.Resize(arrow.Float32Traits.BytesRequired(n))
 		b.rawData = arrow.Float32Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Float32Builder) Value(i int) float32 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Float32 array from the memory buffers used by the builder and resets the Float32Builder
@@ -1413,8 +1509,20 @@ func (b *Int16Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Int16Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Int16Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Int16Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Int16Builder) UnsafeAppend(v int16) {
@@ -1479,6 +1587,10 @@ func (b *Int16Builder) Resize(n int) {
 		b.data.Resize(arrow.Int16Traits.BytesRequired(n))
 		b.rawData = arrow.Int16Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Int16Builder) Value(i int) int16 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Int16 array from the memory buffers used by the builder and resets the Int16Builder
@@ -1636,8 +1748,20 @@ func (b *Uint16Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Uint16Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Uint16Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Uint16Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Uint16Builder) UnsafeAppend(v uint16) {
@@ -1702,6 +1826,10 @@ func (b *Uint16Builder) Resize(n int) {
 		b.data.Resize(arrow.Uint16Traits.BytesRequired(n))
 		b.rawData = arrow.Uint16Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Uint16Builder) Value(i int) uint16 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Uint16 array from the memory buffers used by the builder and resets the Uint16Builder
@@ -1859,8 +1987,20 @@ func (b *Int8Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Int8Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Int8Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Int8Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Int8Builder) UnsafeAppend(v int8) {
@@ -1925,6 +2065,10 @@ func (b *Int8Builder) Resize(n int) {
 		b.data.Resize(arrow.Int8Traits.BytesRequired(n))
 		b.rawData = arrow.Int8Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Int8Builder) Value(i int) int8 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Int8 array from the memory buffers used by the builder and resets the Int8Builder
@@ -2082,8 +2226,20 @@ func (b *Uint8Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Uint8Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Uint8Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Uint8Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Uint8Builder) UnsafeAppend(v uint8) {
@@ -2148,6 +2304,10 @@ func (b *Uint8Builder) Resize(n int) {
 		b.data.Resize(arrow.Uint8Traits.BytesRequired(n))
 		b.rawData = arrow.Uint8Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Uint8Builder) Value(i int) uint8 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Uint8 array from the memory buffers used by the builder and resets the Uint8Builder
@@ -2306,8 +2466,20 @@ func (b *Time32Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Time32Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Time32Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Time32Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Time32Builder) UnsafeAppend(v arrow.Time32) {
@@ -2372,6 +2544,10 @@ func (b *Time32Builder) Resize(n int) {
 		b.data.Resize(arrow.Time32Traits.BytesRequired(n))
 		b.rawData = arrow.Time32Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Time32Builder) Value(i int) arrow.Time32 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Time32 array from the memory buffers used by the builder and resets the Time32Builder
@@ -2530,8 +2706,20 @@ func (b *Time64Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Time64Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Time64Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Time64Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Time64Builder) UnsafeAppend(v arrow.Time64) {
@@ -2596,6 +2784,10 @@ func (b *Time64Builder) Resize(n int) {
 		b.data.Resize(arrow.Time64Traits.BytesRequired(n))
 		b.rawData = arrow.Time64Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Time64Builder) Value(i int) arrow.Time64 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Time64 array from the memory buffers used by the builder and resets the Time64Builder
@@ -2753,8 +2945,20 @@ func (b *Date32Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Date32Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Date32Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Date32Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Date32Builder) UnsafeAppend(v arrow.Date32) {
@@ -2819,6 +3023,10 @@ func (b *Date32Builder) Resize(n int) {
 		b.data.Resize(arrow.Date32Traits.BytesRequired(n))
 		b.rawData = arrow.Date32Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Date32Builder) Value(i int) arrow.Date32 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Date32 array from the memory buffers used by the builder and resets the Date32Builder
@@ -2976,8 +3184,20 @@ func (b *Date64Builder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *Date64Builder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *Date64Builder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *Date64Builder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *Date64Builder) UnsafeAppend(v arrow.Date64) {
@@ -3042,6 +3262,10 @@ func (b *Date64Builder) Resize(n int) {
 		b.data.Resize(arrow.Date64Traits.BytesRequired(n))
 		b.rawData = arrow.Date64Traits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *Date64Builder) Value(i int) arrow.Date64 {
+	return b.rawData[i]
 }
 
 // NewArray creates a Date64 array from the memory buffers used by the builder and resets the Date64Builder
@@ -3200,8 +3424,20 @@ func (b *DurationBuilder) AppendNull() {
 	b.UnsafeAppendBoolToBitmap(false)
 }
 
+func (b *DurationBuilder) AppendNulls(n int) {
+	for i := 0; i < n; i++ {
+		b.AppendNull()
+	}
+}
+
 func (b *DurationBuilder) AppendEmptyValue() {
 	b.Append(0)
+}
+
+func (b *DurationBuilder) AppendEmptyValues(n int) {
+	for i := 0; i < n; i ++ {
+		b.AppendEmptyValue()
+	}
 }
 
 func (b *DurationBuilder) UnsafeAppend(v arrow.Duration) {
@@ -3266,6 +3502,10 @@ func (b *DurationBuilder) Resize(n int) {
 		b.data.Resize(arrow.DurationTraits.BytesRequired(n))
 		b.rawData = arrow.DurationTraits.CastFromBytes(b.data.Bytes())
 	}
+}
+
+func (b *DurationBuilder) Value(i int) arrow.Duration {
+	return b.rawData[i]
 }
 
 // NewArray creates a Duration array from the memory buffers used by the builder and resets the DurationBuilder
