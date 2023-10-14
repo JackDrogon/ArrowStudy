@@ -34,4 +34,4 @@ help: Makefile
 .PHONY: bitmap_of_array
 ## bitmap_of_array : Build bitmap_of_array
 bitmap_of_array:
-	$(V)go build bin/bitmap_of_array/bitmap_of_array.go
+	$(V)go build -o bin/bitmap_of_array cmd/bitmap_of_array/bitmap_of_array.go
