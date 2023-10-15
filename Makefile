@@ -29,7 +29,7 @@ test:
 .PHONY: help
 ## help : Print help message
 help: Makefile
-	@sed -n 's/^##//p' $< | awk 'BEGIN {FS = ":"} {printf "\033[36m%-13s\033[0m %s\n", $$1, $$2}'
+	@sed -n 's/^##//p' $< | awk 'BEGIN {FS = ":"} {printf "\033[36m%-23s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: bitmap_of_array
 ## bitmap_of_array : Build bitmap_of_array
