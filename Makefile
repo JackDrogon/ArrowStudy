@@ -35,3 +35,8 @@ help: Makefile
 ## bitmap_of_array : Build bitmap_of_array
 bitmap_of_array:
 	$(V)go build -o bin/bitmap_of_array cmd/bitmap_of_array/bitmap_of_array.go
+
+.PHONY:fixed_list_array_type
+## fixed_list_array_type : Build fixed_list_array_type
+fixed_list_array_type:
+	$(V)go build -o bin/fixed_list_array_type cmd/fixed_list_array_type/fixed_list_array_type.go
