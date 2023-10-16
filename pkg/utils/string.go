@@ -2,7 +2,9 @@ package utils
 
 import "strings"
 
-func stringReverse(src string) string {
+// asciiStringReverse reverses the input string and returns the result.
+// NOTE: only ASCII characters are supported.
+func asciiStringReverse(src string) string {
 	if len(src) == 0 {
 		return ""
 	}
