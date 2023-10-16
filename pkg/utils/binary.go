@@ -21,7 +21,7 @@ func BinaryDump(data []byte) string {
 		if i != 0 {
 			buf.WriteString(" ")
 		}
-		buf.WriteString(fmt.Sprintf("%08b", n))
+		buf.WriteString(stringReverse(fmt.Sprintf("%08b", n)))
 	}
 
 	return buf.String()
