@@ -40,3 +40,8 @@ bitmap_of_array:
 ## fixed_list_array_type : Build fixed_list_array_type
 fixed_list_array_type:
 	$(V)go build -o bin/fixed_list_array_type cmd/fixed_list_array_type/fixed_list_array_type.go
+
+.PHONY:csv_reader
+## csv_reader : Build csv_reader
+csv_reader:
+	$(V)go build -o bin/csv_reader cmd/csv_reader/csv_reader.go
