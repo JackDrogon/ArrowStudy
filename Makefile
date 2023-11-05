@@ -36,12 +36,17 @@ help: Makefile
 bitmap_of_array:
 	$(V)go build -o bin/bitmap_of_array cmd/bitmap_of_array/bitmap_of_array.go
 
-.PHONY:fixed_list_array_type
+.PHONY: fixed_list_array_type
 ## fixed_list_array_type : Build fixed_list_array_type
 fixed_list_array_type:
 	$(V)go build -o bin/fixed_list_array_type cmd/fixed_list_array_type/fixed_list_array_type.go
 
-.PHONY:csv_reader
+.PHONY: csv_reader
 ## csv_reader : Build csv_reader
 csv_reader:
 	$(V)go build -o bin/csv_reader cmd/csv_reader/csv_reader.go
+
+.PHONY: max
+## max : Build max
+max:
+	$(V)go build -o bin/max cmd/max/max.go

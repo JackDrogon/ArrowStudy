@@ -10,6 +10,7 @@ import (
 
 func readCSV() {
 	str := `## a simple set of data: int64;float64;string
+n1;n2;n3
 0;0;str-0
 1;1;str-1
 2;2;str-2
